@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import SudokuGenerator from './component/sudokuGenerator';
+import sudokuRoutes from './route/routes';
 
 const app = express();
 const port = 3001;
@@ -9,18 +9,8 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
-const sudokuGenerator = new SudokuGenerator();
 
-// Sudoku routes
-app.get('/api/sudoku', (req, res) => {
-  const puzzle = sudokuGenerator.createPuzzle();
-  res.json({puzzle});
-});
-
-// test route
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'ok' });
-});
+app.use('/api', sudokuRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

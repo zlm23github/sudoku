@@ -89,6 +89,44 @@ class SudokuGenerator {
     return puzzle;
   }
 
+  validatePuzzle(puzzle: number[][]): boolean {
+    // check each row
+    for (let i = 0; i < 9; i++) {
+      const rowSet = new Set<number>();
+      for (let j = 0; j < 9; j++) {
+        const val = puzzle[i][j];
+        if (val < 1 || val > 9 || rowSet.has(val)) return false;
+        rowSet.add(val);
+      }
+    }
+  
+    // check each column
+    for (let j = 0; j < 9; j++) {
+      const colSet = new Set<number>();
+      for (let i = 0; i < 9; i++) {
+        const val = puzzle[i][j];
+        if (val < 1 || val > 9 || colSet.has(val)) return false;
+        colSet.add(val);
+      }
+    }
+  
+    // check each 3x3 box
+    for (let boxRow = 0; boxRow < 3; boxRow++) {
+      for (let boxCol = 0; boxCol < 3; boxCol++) {
+        const boxSet = new Set<number>();
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            const val = puzzle[boxRow * 3 + i][boxCol * 3 + j];
+            if (val < 1 || val > 9 || boxSet.has(val)) return false;
+            boxSet.add(val);
+          }
+        }
+      }
+    }
+  
+    // pass all checks
+    return true;
+  }
 
 }
 

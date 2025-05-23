@@ -48,6 +48,7 @@ function App() {
   const handleSolve = () => {
     fetch('http://localhost:3001/api/solve', {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, //debug by gpt
       body: JSON.stringify({ puzzle: sudoku }),
     })
       .then(res => res.json())
